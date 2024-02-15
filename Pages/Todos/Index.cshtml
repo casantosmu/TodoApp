@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Todo[0].TimeEnd)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Todo[0].Date)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,9 +36,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TimeEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
