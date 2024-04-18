@@ -26,9 +26,9 @@
 
 @if (!Model.Todos.Any())
 {
-<div>
-    <p>Either you've done everything already or there are still things to add to your list. Add your first todo &#x2193;</p>
-</div>
+    <div>
+        <p>Either you've done everything already or there are still things to add to your list. Add your first todo &#x2193;</p>
+    </div>
 }
 
 <form method="post" asp-page-handler="AddTodo">

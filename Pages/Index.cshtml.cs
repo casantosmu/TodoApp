@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+
 using TodoApp.Data;
 using TodoApp.Models;
 
@@ -9,7 +10,9 @@ namespace TodoApp.Pages;
 public class IndexModel(TodoAppContext context) : PageModel
 {
     public IList<Todo> Todos { get; set; } = default!;
-    [BindProperty] public Todo? NewTodo { get; set; }
+
+    [BindProperty]
+    public Todo? NewTodo { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -18,20 +21,20 @@ public class IndexModel(TodoAppContext context) : PageModel
 
     public async Task<IActionResult> OnPostToggleDoneAsync(int id)
     {
-        var todo = await context.Todo.FindAsync(id);
-        
+        Todo? todo = await context.Todo.FindAsync(id);
+
         if (todo is not null)
         {
             todo.Done = !todo.Done;
             await context.SaveChangesAsync();
         }
-        
+
         return RedirectToPage();
     }
-    
+
     public async Task<IActionResult> OnPostDeleteTodoAsync(int id)
     {
-        var todo = await context.Todo.FindAsync(id);
+        Todo? todo = await context.Todo.FindAsync(id);
 
         if (todo is not null)
         {
@@ -41,7 +44,7 @@ public class IndexModel(TodoAppContext context) : PageModel
 
         return RedirectToPage();
     }
-    
+
     public async Task<IActionResult> OnPostAddTodoAsync()
     {
         if (!ModelState.IsValid)
@@ -52,8 +55,8 @@ public class IndexModel(TodoAppContext context) : PageModel
 
         if (NewTodo is not null)
         {
-            context.Todo.Add(new Todo() {Name = NewTodo.Name});
-            await context.SaveChangesAsync();   
+            context.Todo.Add(new Todo { Name = NewTodo.Name });
+            await context.SaveChangesAsync();
         }
 
         return RedirectToPage();
