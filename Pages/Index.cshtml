@@ -1,8 +1,40 @@
 ﻿@page
 @model IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Todos List";
 }
 
-<h1>Welcome</h1>
-<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>@ViewData["Title"]</h1>
+
+<ul>
+    @for (var index = 0; index < Model.Todos.Count; index++)
+    {
+        var localIndex = index;
+        var todo = Model.Todos[localIndex];
+        <li>
+            <form method="post" asp-page-handler="ToggleDone" asp-route-id="@todo.TodoId" style="display: inline">
+                <input asp-for="Todos[localIndex].Done" onchange="this.form.submit()"/>
+                <label asp-for="Todos[localIndex].Done">@Html.DisplayFor(model => todo.Name)</label>
+            </form>
+            <form method="post" asp-page-handler="DeleteTodo" asp-route-id="@todo.TodoId" style="display: inline">
+                <button type="submit" aria-label=@($"delete '{Html.DisplayFor(model => todo.Name)}'")>&times;</button>
+            </form>
+        </li>
+    }
+</ul>
+
+@if (!Model.Todos.Any())
+{
+<div>
+    <p>Either you've done everything already or there are still things to add to your list. Add your first todo &#x2193;</p>
+</div>
+}
+
+<form method="post" asp-page-handler="AddTodo">
+    <div>
+        <input asp-for="NewTodo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl">
+        <button type="submit">Add</button>
+    </div>
+    <span asp-validation-for="NewTodo!.Name" class="text-danger"></span>
+</form>

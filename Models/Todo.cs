@@ -9,7 +9,7 @@ public class Todo
     [StringLength(60)]
     public required string Name { get; init; }
 
-    public bool Done { get; init; }
+    public bool Done { get; set; }
 
     public DateTime CreatedAt { get; init; } = DateTime.Now;
 }
