@@ -4,11 +4,13 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - TodoApp</title>
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/base.css" asp-append-version="true"/>
+    @await RenderSectionAsync("Css", required:false)
 </head>
 <body>
 
-<main>
+<main class="vh-100">
     @RenderBody()
 </main>
 
