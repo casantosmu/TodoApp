@@ -1,7 +1,7 @@
 .todos-container {
     margin: 0 auto;
     padding: 2.25rem 0.50rem;
-    width: 25rem;
+    max-width: 25rem;
 }
 
 .todos-heading {
