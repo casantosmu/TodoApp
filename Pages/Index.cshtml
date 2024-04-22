@@ -2,7 +2,7 @@
 @model IndexModel
 
 @{
-    ViewData["Title"] = "Todos List";
+    ViewData["Title"] = $"Todos {Model.Date}";
 }
 
 @section Css
@@ -11,37 +11,44 @@
 }
 
 <section class="todos-container">
-    <div class="todos">
-        <h1 class="todos-heading">@ViewData["Title"]</h1>
-
-        <ul class="todos-list">
-            @for (var index = 0; index < Model.Todos.Count; index++)
-            {
-                var localIndex = index;
-                var todo = Model.Todos[localIndex];
-                <li class="todos-item">
-                    <form class="todos-item-toggle" method="post" asp-page-handler="ToggleDone" asp-route-id="@todo.TodoId">
-                        <input class="todos-item-toggle-checkbox" asp-for="Todos[localIndex].Done" onchange="this.form.submit()"/>
-                        <label class="todos-item-toggle-label" asp-for="Todos[localIndex].Done">@Html.DisplayFor(model => todo.Name)</label>
-                    </form>
-                    <form class="todos-item-delete" method="post" asp-page-handler="DeleteTodo" asp-route-id="@todo.TodoId">
-                        <button class="todos-item-delete-button" type="submit" aria-label=@($"delete '{Html.DisplayFor(model => todo.Name)}'")>&times;</button>
-                    </form>
-                </li>
-            }
-        </ul>
-
-        @if (!Model.Todos.Any())
-        {
-            <p>Either you've done everything already or there are still things to add to your list. Add your first todo &#x2193;</p>
-        }
-
-        <form class="todos-add" method="post" asp-page-handler="AddTodo">
-            <div class="form-group">
-                <input class="form-input" asp-for="NewTodo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
-                <button class="form-submit" type="submit">Add</button>
-            </div>
-            <span  class="text-danger" asp-validation-for="NewTodo!.Name"></span>
+    <header>
+        <form class="form-group">
+            <input class="form-input" asp-for="Date" aria-label="Filter todos by date" style="flex: initial"/>
+            <button class="form-submit" type="submit">Filter</button>
         </form>
-    </div>
+        <h1 class="todos-heading">@Model.Date</h1>
+    </header>
+
+    <ul class="todos-list">
+        @for (var index = 0; index < Model.Todos.Count; index++)
+        {
+            var localIndex = index;
+            var todo = Model.Todos[localIndex];
+            <li class="todos-item">
+                <form class="todos-item-toggle" method="post" asp-page-handler="ToggleDone" asp-route-id="@todo.TodoId">
+                    <input asp-for="Date" type="hidden" id="toggle-hidden-date"/>
+                    <input class="todos-item-toggle-checkbox" asp-for="Todos[localIndex].Done" onchange="this.form.submit()"/>
+                    <label class="todos-item-toggle-label" asp-for="Todos[localIndex].Done">@Html.DisplayFor(model => todo.Name)</label>
+                </form>
+                <form class="todos-item-delete" method="post" asp-page-handler="DeleteTodo" asp-route-id="@todo.TodoId">
+                    <input asp-for="Date" type="hidden" id="delete-hidden-date"/>
+                    <button class="todos-item-delete-button" type="submit" aria-label=@($"delete '{Html.DisplayFor(model => todo.Name)}'")>&times;</button>
+                </form>
+            </li>
+        }
+    </ul>
+
+    @if (!Model.Todos.Any())
+    {
+        <p>Either you've done everything already or there are still things to add to your list. Add your first todo &#x2193;</p>
+    }
+
+    <form class="todos-add" method="post" asp-page-handler="AddTodo">
+        <div class="form-group">
+            <input asp-for="Date" type="hidden" id="add-hidden-date"/>
+            <input class="form-input" asp-for="Todo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
+            <button class="form-submit" type="submit">Add</button>
+        </div>
+        <span class="text-danger" asp-validation-for="Todo!.Name"></span>
+    </form>
 </section>

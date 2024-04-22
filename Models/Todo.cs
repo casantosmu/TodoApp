@@ -9,6 +9,8 @@ public class Todo
     [StringLength(60)]
     public required string Name { get; init; }
 
+    public DateOnly Date { get; init; } = DateOnly.FromDateTime(DateTime.Now);
+
     public bool Done { get; set; }
 
     public DateTime CreatedAt { get; init; } = DateTime.Now;
