@@ -36,7 +36,7 @@
 
 .todos-item-toggle-label {
     flex: 2;
-    padding-left: 0.50rem;
+    padding: 0 0.50rem;
 }
 
 .todos-item-delete-button {
