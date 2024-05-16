@@ -5,6 +5,11 @@
     ViewData["Title"] = $"Todos {Model.Date}";
 }
 
+@section Scripts
+{
+    <script src="~/js/todos.js" asp-append-version="true" defer></script>
+}
+
 @section Css
 {
     <link rel="stylesheet" href="~/css/todos.css" asp-append-version="true"/>
@@ -13,7 +18,7 @@
 <section class="todos-container">
     <header>
         <form class="form-group">
-            <input class="form-input" asp-for="Date" aria-label="Filter todos by date" style="flex: initial"/>
+            <input class="form-input" asp-for="Date" aria-label="Filter todos by date"/>
             <button class="form-submit" type="submit">Filter</button>
         </form>
         <h1 class="todos-heading">@Model.Date</h1>
@@ -27,7 +32,7 @@
             <li class="todos-item">
                 <form class="todos-item-toggle" method="post" asp-page-handler="ToggleDone" asp-route-id="@todo.TodoId">
                     <input asp-for="Date" type="hidden" id="toggle-hidden-date"/>
-                    <input class="todos-item-toggle-checkbox" asp-for="Todos[localIndex].Done" onchange="this.form.submit()"/>
+                    <input class="todos-item-toggle-checkbox js-toggle-todo" asp-for="Todos[localIndex].Done"/>
                     <label class="todos-item-toggle-label" asp-for="Todos[localIndex].Done">@Html.DisplayFor(model => todo.Name)</label>
                 </form>
                 <form class="todos-item-delete" method="post" asp-page-handler="DeleteTodo" asp-route-id="@todo.TodoId">
@@ -46,7 +51,7 @@
     <form class="todos-add" method="post" asp-page-handler="AddTodo">
         <div class="form-group">
             <input asp-for="Date" type="hidden" id="add-hidden-date"/>
-            <input class="form-input" asp-for="Todo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
+            <input class="form-input flex-fill" asp-for="Todo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
             <button class="form-submit" type="submit">Add</button>
         </div>
         <span class="text-danger" asp-validation-for="Todo!.Name"></span>
