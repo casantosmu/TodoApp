@@ -5,6 +5,11 @@
     ViewData["Title"] = $"Todos {Model.Date}";
 }
 
+@section Scripts
+{
+    <script src="~/js/todos.js" asp-append-version="true" defer></script>
+}
+
 @section Css
 {
     <link rel="stylesheet" href="~/css/todos.css" asp-append-version="true"/>
@@ -27,7 +32,7 @@
             <li class="todos-item">
                 <form class="todos-item-toggle" method="post" asp-page-handler="ToggleDone" asp-route-id="@todo.TodoId">
                     <input asp-for="Date" type="hidden" id="toggle-hidden-date"/>
-                    <input class="todos-item-toggle-checkbox" asp-for="Todos[localIndex].Done" onchange="this.form.submit()"/>
+                    <input class="todos-item-toggle-checkbox js-toggle-todo" asp-for="Todos[localIndex].Done"/>
                     <label class="todos-item-toggle-label" asp-for="Todos[localIndex].Done">@Html.DisplayFor(model => todo.Name)</label>
                 </form>
                 <form class="todos-item-delete" method="post" asp-page-handler="DeleteTodo" asp-route-id="@todo.TodoId">
