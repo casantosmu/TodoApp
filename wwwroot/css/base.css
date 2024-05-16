@@ -26,6 +26,10 @@ body {
     color: rgb(220, 53, 69);
 }
 
+.flex-fill {
+    flex: 1;
+}
+
 .form-group {
     display: flex;
     justify-content: center;
@@ -36,7 +40,6 @@ body {
     border: 0.125rem solid;
     border-radius: 0.125rem;
     line-height: 1;
-    flex: 1;
 }
 
 .form-submit {

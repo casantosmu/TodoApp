@@ -13,7 +13,7 @@
 <section class="todos-container">
     <header>
         <form class="form-group">
-            <input class="form-input" asp-for="Date" aria-label="Filter todos by date" style="flex: initial"/>
+            <input class="form-input" asp-for="Date" aria-label="Filter todos by date"/>
             <button class="form-submit" type="submit">Filter</button>
         </form>
         <h1 class="todos-heading">@Model.Date</h1>
@@ -46,7 +46,7 @@
     <form class="todos-add" method="post" asp-page-handler="AddTodo">
         <div class="form-group">
             <input asp-for="Date" type="hidden" id="add-hidden-date"/>
-            <input class="form-input" asp-for="Todo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
+            <input class="form-input flex-fill" asp-for="Todo!.Name" aria-label="Write a new todo item" placeholder="E.g. Adopt an owl" required>
             <button class="form-submit" type="submit">Add</button>
         </div>
         <span class="text-danger" asp-validation-for="Todo!.Name"></span>
