@@ -21,6 +21,17 @@
             <input class="form-input" asp-for="Date" aria-label="Filter todos by date"/>
             <button class="form-submit" type="submit">Filter</button>
         </form>
+        <nav>
+            <ul class="todos-date-list">
+                @foreach (var offset in new[] { -1, 1 })
+                {
+                    var date = Model.Date.AddDays(offset);
+                    <li class="todos-date-item">
+                        <a class="todos-date-link" asp-page="./Index" asp-route-date="@date.ToString("o")">@date</a>
+                    </li>
+                }
+            </ul>
+        </nav>
         <h1 class="todos-heading">@Model.Date</h1>
     </header>
 
