@@ -26,8 +26,8 @@
                 @foreach (var offset in new[] { -1, 1 })
                 {
                     var date = Model.Date.AddDays(offset);
-                    <li class="todos-date-item">
-                        <a class="todos-date-link" asp-page="./Index" asp-route-date="@date.ToString("o")">@date</a>
+                    <li>
+                        <a asp-page="./Index" asp-route-date="@date.ToString("o")">@date</a>
                     </li>
                 }
             </ul>
